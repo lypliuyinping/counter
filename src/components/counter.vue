@@ -1,32 +1,38 @@
 <template>
   <div class="hello">
-    <button type="submit" @click="add">+</button> 
+    <span> {{index}}:</span>
+    <button type="submit" v-on:click="add">+</button> 
+    <span> {{counter}}</span>
     <button type="submit" @click="minus">-</button>
-    <p> {{message}}</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
-    msg: String
+    index: Number,
+    counter: Number
   },
-         data:function(){
-                return{
-                    message:0
-                }
-            },
-          methods:{
-            add:function () {
-                    this.message++;
-                console.log(this.message);
-            },
-            minus:function () {
-                    this.message--;
-            }
+
+  methods: {
+    add: function() {
+      this.counter++;
+      this.deliver();
+    },
+    minus: function() {
+      this.counter--;
+      this.deliver();
+    },
+
+    deliver: function() {
+      this.$emit("update", {
+        index: this.index,
+        value: this.counter
+      });
     }
-}
+  }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
